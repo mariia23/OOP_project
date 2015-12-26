@@ -7,6 +7,7 @@ class Cat(object):
     def __init__(self, cat_name):
         self.name = cat_name
         self.is_moving = False
+        self.stomach = 0
 
     def run(self):
         self.is_moving = True
@@ -20,10 +21,16 @@ class Cat(object):
         print "I'm playing with {}.".format(toy)
 
     def eat(self, *food):
-        print food
-        joined_food = ", ".join(food)
-        print joined_food
-        print "I'm eating {}.".format(joined_food)
+        if not self.is_hungry:
+            print "I'm not hungry!"
+        else:
+            joined_food = ", ".join(food)
+            print "I'm eating {}.".format(joined_food)
+            self.stomach += 0.25
+
+    @property
+    def is_hungry(self):
+        return not self.stomach == 1
 
 
 cat = Cat("Murzik")
@@ -37,3 +44,6 @@ print cat.is_moving
 cat.play("ball")
 cat.eat("spaghetti")
 cat.eat("milk", "sausage")
+cat.eat("meat")
+cat.eat("ice cream")
+cat.eat("cheese")
